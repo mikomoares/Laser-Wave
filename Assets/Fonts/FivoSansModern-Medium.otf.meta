@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 4c786781ae2926b4fbd2a2944dc358d2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Fivo Sans Modern
+  fontNames:
+  - Fivo Sans Modern
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 12f341d2f705dea49abbce57299fe25a, type: 3}
+  - {fileID: 12800000, guid: 81e35da6c8d16c8419046d5e5fc405f3, type: 3}
+  - {fileID: 12800000, guid: a08a24191ab48df4ba86fabd62c48581, type: 3}
+  - {fileID: 12800000, guid: 340deb2a0b31c9640a5280c4dc906be3, type: 3}
+  - {fileID: 12800000, guid: 573a0aabafaab804f905088aa36e9be8, type: 3}
+  - {fileID: 12800000, guid: 07722def9f565de4c98b0aeff1a6eb6c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
