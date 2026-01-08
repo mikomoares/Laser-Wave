@@ -24,6 +24,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     public Sprite heart;
     private bool comecou;
 
+    public float bpm = 128f;
+    int beatCount;
+
+    double nextBeatTime;
+    double beatInterval;
+
     public Transform weapon;
     public GameObject gm;
     private void Start()
@@ -32,6 +38,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         comecou = false;
         gm = GameObject.Find("GameManager");
+        beatInterval = 60.0 / bpm;
+        beatCount = 0;
+        nextBeatTime = AudioSettings.dspTime;
+        AudioManager.StartMusic();
+
     }
 
 
@@ -39,7 +50,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         toPos.x = lookDir.x;
         toPos.y = lookDir.y;
-        if (Time.time - lastShootTimestamp < 0.2f) return;
+        // if (Time.time - lastShootTimestamp < 0.2f) return;
         animator.SetTrigger("Attack");
         AudioManager.PlaySFX(shootSFX);
         lastShootTimestamp = Time.time;
@@ -88,14 +99,35 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
+        double dspTime = AudioSettings.dspTime;
         lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
-        if(Input.GetMouseButton(0))
+        // if(Input.GetMouseButton(0))
+        // {
+        //     Shoot();
+        // }
+        if (dspTime >= nextBeatTime)
         {
-            Shoot();
+            beatCount++;
+            if(beatCount % 4 == 0){
+                beatCount=0;
+                StartCoroutine(DoubleShoot());
+                nextBeatTime += beatInterval;
+            }
+            else{
+                Shoot();
+                nextBeatTime += beatInterval;
+            }
         }
     }    
+
+    private IEnumerator DoubleShoot()
+    {
+        Shoot();
+        yield return new WaitForSeconds((float)beatInterval/2f);
+        Shoot();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

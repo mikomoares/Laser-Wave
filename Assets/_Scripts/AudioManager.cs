@@ -17,10 +17,18 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         _instance = this;
-        if (music) {
-            ambienceSource.loop = true;
-            ambienceSource.clip = music;
-            ambienceSource.Play();
+        // if (music) {
+        //     ambienceSource.loop = true;
+        //     ambienceSource.clip = music;
+        //     ambienceSource.Play();
+        // }
+    }
+    public static void StartMusic()
+    {
+        if (_instance.music) {
+            _instance.ambienceSource.loop = true;
+            _instance.ambienceSource.clip = _instance.music;
+            _instance.ambienceSource.Play();
         }
     }
 

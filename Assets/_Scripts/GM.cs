@@ -45,11 +45,6 @@ public class GM : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        
-    }
-
     private IEnumerator Spawner(){
         yield return new WaitForSeconds(3f);
         while (!gameOver){

@@ -116,10 +116,10 @@ public class Enemy : MonoBehaviour, IDamageable
                 }
             }
             
-            if (enemyData.shootSound != null)
-            {
-                AudioManager.PlaySFX(enemyData.shootSound);
-            }
+            // if (enemyData.shootSound != null)
+            // {
+            //     AudioManager.PlaySFX(enemyData.shootSound);
+            // }
         }
     }
 
