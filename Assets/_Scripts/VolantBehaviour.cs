@@ -1,19 +1,30 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VolantBehaviour : SteerableBehaviour, IDamageable  
+[RequireComponent(typeof(Rigidbody2D))]
+public class VolantBehaviour : MonoBehaviour, IDamageable  
 {
     public GameObject particle;
-    int life = 3;
-    float angle = 0;
+    public Vector2 speed = new Vector2(0f, 2f);
+    
+    private int life = 3;
+    private float angle = 0;
+    private Rigidbody2D rb;
 
-   private void FixedUpdate()
-   {
-       angle += 0.1f;
-       if (angle > 2.0f * Mathf.PI) angle = 0.0f;
-       Thrust(0, Mathf.Cos(angle));
-   }
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        angle += 0.1f;
+        if (angle > 2.0f * Mathf.PI) angle = 0.0f;
+        
+        Vector2 movement = new Vector2(0, Mathf.Cos(angle)) * speed * Time.fixedDeltaTime;
+        rb.MovePosition(rb.position + movement);
+    }
     public void TakeDamage()
     {
         if (life == 1){

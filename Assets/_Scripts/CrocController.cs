@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrocController : SteerableBehaviour, IDamageable, IShooter
+public class CrocController : MonoBehaviour, IDamageable
 {
     private Animator animator;
     public int life;

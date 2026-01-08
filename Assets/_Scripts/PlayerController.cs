@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class PlayerController : SteerableBehaviour, IShooter, IDamageable
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public AudioClip shootSFX;
     public Text tutorial;
@@ -43,15 +43,22 @@ public class PlayerController : SteerableBehaviour, IShooter, IDamageable
         animator.SetTrigger("Attack");
         AudioManager.PlaySFX(shootSFX);
         lastShootTimestamp = Time.time;
+        
         GameObject bul = Instantiate(bullet, weapon.position, transform.rotation);
-        Rigidbody2D rb = bul.GetComponent<Rigidbody2D>();
-        rb.AddForce(weapon.up*20, ForceMode2D.Impulse);
-        //Thrust(lookDir.normalized.x*2, lookDir.normalized.y*2);
-        this.GetComponent<Rigidbody2D>().AddForce(toPos.normalized*5f, ForceMode2D.Impulse);
-        if(!comecou){
-            comecou=true;
+        
+        Projectile projectile = bul.GetComponent<Projectile>();
+        if (projectile != null)
+        {
+            projectile.SetOwner(ProjectileOwner.Player);
+            projectile.SetDirection(-lookDir.normalized);
+        }
+        
+        this.GetComponent<Rigidbody2D>().AddForce(toPos.normalized * 5f, ForceMode2D.Impulse);
+        
+        if(!comecou)
+        {
+            comecou = true;
             tutorial.enabled = false;
-
         }
     }
 

@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Reactional.csproj" />
+  <Project Path="Bezi.Editor.csproj" />
+</Solution>

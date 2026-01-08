@@ -59,7 +59,7 @@ public class GM : MonoBehaviour
                     Instantiate(croc);
                     crocked = true;
                 }
-                if (enemyInWave==3){
+                if (enemyInWave==1){
                     Instantiate(enemies[0], posicoes[(int)Random.Range(0f,3.99f)], Quaternion.identity);
                 }else if (enemyInWave<=5){
                     float ran = Random.Range(0f,1f);

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd0508195ad2f24c9ae504ff69c94d1, type: 3}
   m_Name: PlayerShipData
   m_EditorClassIdentifier: 
-  thrustIntensity: {x: 3, y: 5}
+  thrustIntensity: {x: 1000, y: 5}
