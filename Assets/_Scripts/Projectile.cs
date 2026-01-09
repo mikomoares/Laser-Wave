@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
 
     [Header("Collision")]
     public AudioClip hitSound;
+    public GameObject hitEffectPrefab;
 
     [Header("Lifetime")]
     public float maxLifetime = 10f;
@@ -28,6 +29,7 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rb;
     private float lifetime = 0f;
     private bool directionSet = false;
+    public int weaponDamage = 1;
 
     private void Awake()
     {
@@ -70,11 +72,17 @@ public class Projectile : MonoBehaviour
         IDamageable damageable = collision.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            damageable.TakeDamage();
+            damageable.TakeDamage(weaponDamage);
 
             if (hitSound != null)
             {
                 AudioManager.PlaySFX(hitSound);
+            }
+
+            if (hitEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+                Destroy(effect, 2f);
             }
         }
 
@@ -83,6 +91,10 @@ public class Projectile : MonoBehaviour
 
     private bool ShouldIgnoreCollision(Collider2D collision)
     {
+        if (collision.CompareTag("Projectile"))
+        {
+            return true;
+        }
         if (owner == ProjectileOwner.Player)
         {
             if (collision.CompareTag("Player"))
@@ -123,5 +135,11 @@ public class Projectile : MonoBehaviour
     public void SetOwner(ProjectileOwner projectileOwner)
     {
         owner = projectileOwner;
+    }
+
+    public void ApplyForce(Vector2 force, ForceMode2D mode = ForceMode2D.Impulse)
+    {
+        rb.AddForce(force, mode);
+        usePhysics = true;
     }
 }

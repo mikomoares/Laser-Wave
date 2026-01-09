@@ -10,7 +10,7 @@ public class CircleScript : MonoBehaviour, IDamageable
     private void Start() {
         player = GameObject.Find("Player");
     }
-    public void TakeDamage()
+    public void TakeDamage(int amount)
     {
         Die();
     }

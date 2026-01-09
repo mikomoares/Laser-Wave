@@ -33,8 +33,8 @@ public class GM : MonoBehaviour
     {
         posicoes = new [] { esq, dir, cima, baixo };
 
-        timeToSpawn = 3.5f;
-        timeToWave = 2f;
+        timeToSpawn = 2f;
+        timeToWave = 1f;
 
         enemyInWave = 3;
         StartCoroutine(Spawner());
@@ -50,13 +50,13 @@ public class GM : MonoBehaviour
         while (!gameOver){
             for (int i = 0; i < enemyInWave; i++)
             {
-                if (enemyInWave == 6 && !crocked){
+                if (enemyInWave == 12 && !crocked){
                     Instantiate(croc);
                     crocked = true;
                 }
                 if (enemyInWave==1){
                     Instantiate(enemies[0], posicoes[(int)Random.Range(0f,3.99f)], Quaternion.identity);
-                }else if (enemyInWave<=5){
+                }else if (enemyInWave<=10){
                     float ran = Random.Range(0f,1f);
                     if (ran>=0.25){
                         Instantiate(enemies[0], posicoes[(int)Random.Range(0f,3.99f)], Quaternion.identity);

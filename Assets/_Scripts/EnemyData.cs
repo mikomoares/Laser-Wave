@@ -20,6 +20,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Visuals")]
     public RuntimeAnimatorController animatorController;
+    public GameObject hitEffectPrefab;
 }
 
 public enum EnemyMovementType

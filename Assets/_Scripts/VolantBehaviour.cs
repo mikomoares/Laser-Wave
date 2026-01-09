@@ -25,12 +25,12 @@ public class VolantBehaviour : MonoBehaviour, IDamageable
         Vector2 movement = new Vector2(0, Mathf.Cos(angle)) * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + movement);
     }
-    public void TakeDamage()
+    public void TakeDamage(int amount)
     {
         if (life == 1){
             Die();
         }else{
-            life--;
+            life -= amount;
         }
     }
     public void Die(){

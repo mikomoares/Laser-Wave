@@ -22,11 +22,11 @@ public class CrocController : MonoBehaviour, IDamageable
         Shoot();
     }
 
-    public void TakeDamage(){
+    public void TakeDamage(int amount){
         if (life == 1){
             Die();
         }else{
-            life--;
+            life -= amount;
             animator.SetTrigger("damage");
         }
     }

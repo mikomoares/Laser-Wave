@@ -374,3 +374,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyData: {fileID: 11400000, guid: 817f0ba412269574b9dbadcd83143436, type: 2}
+  isBeatAnimationSlow: 0

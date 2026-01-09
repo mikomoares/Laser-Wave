@@ -3,95 +3,80 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class PlayerController : MonoBehaviour, IDamageable
 {
-    public AudioClip shootSFX;
-    public Text tutorial;
-    public AudioClip hit;
-    public Rigidbody2D rb;
-    public Camera cam;
-    public GameObject bullet;
-    private int lifes;
-    public float shootDelay = 0.2f;
-
-    private float lastShootTimestamp = 0.0f;
-    Animator animator;
-    Vector2 mousePos;
-    Vector2 lookDir;
-    Vector2 toPos;
+    [Header("Health & UI")]
+    public int maxLives = 10;
     public Image[] hearts;
     public Sprite heart;
-    private bool comecou;
+    public Text tutorial;
 
-    public float bpm = 128f;
-    int beatCount;
+    [Header("Audio & VFX")]
+    public AudioClip hit;
+    public GameObject hitEffectPrefab;
 
-    double nextBeatTime;
-    double beatInterval;
-
-    public Transform weapon;
+    [Header("References")]
+    public Rigidbody2D rb;
+    public Camera cam;
     public GameObject gm;
+
+    private int lifes;
+    private Animator animator;
+    private Vector2 mousePos;
+    private Vector2 lookDir;
+    // private bool comecou;
+
     private void Start()
     {
-        lifes = 10;
+        lifes = maxLives;
         animator = GetComponent<Animator>();
-        comecou = false;
+        // comecou = false;
         gm = GameObject.Find("GameManager");
-        beatInterval = 60.0 / bpm;
-        beatCount = 0;
-        nextBeatTime = AudioSettings.dspTime;
         AudioManager.StartMusic();
-
     }
 
-
-    public void Shoot()
+    public void TakeDamage(int amount)
     {
-        toPos.x = lookDir.x;
-        toPos.y = lookDir.y;
-        // if (Time.time - lastShootTimestamp < 0.2f) return;
-        animator.SetTrigger("Attack");
-        AudioManager.PlaySFX(shootSFX);
-        lastShootTimestamp = Time.time;
-        
-        GameObject bul = Instantiate(bullet, weapon.position, transform.rotation);
-        
-        Projectile projectile = bul.GetComponent<Projectile>();
-        if (projectile != null)
-        {
-            projectile.SetOwner(ProjectileOwner.Player);
-            projectile.SetDirection(-lookDir.normalized);
-        }
-        
-        this.GetComponent<Rigidbody2D>().AddForce(toPos.normalized * 5f, ForceMode2D.Impulse);
-        
-        if(!comecou)
-        {
-            comecou = true;
-            tutorial.enabled = false;
-        }
-    }
-
-    public void TakeDamage()
-    {
-        lifes--;
+        lifes -= amount;
         if (lifes <= 0) Die();
         animator.SetTrigger("Damage");
-        
+
+        if (hitEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, 2f);
+        }
     }
 
     public void Die()
     {
         gm.GetComponent<GM>().Lose();
     }
-    private void Update() {
+
+    public void OnFirstShot()
+    {
+        // if (!comecou)
+        // {
+        // comecou = true;
+        if (tutorial != null)
+        {
+            tutorial.enabled = false;
+        }
+        // }
+    }
+
+    private void Update()
+    {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (i<lifes){
+            if (i < lifes)
+            {
                 hearts[i].enabled = true;
-            }else{
+            }
+            else
+            {
                 hearts[i].enabled = false;
             }
         }
@@ -99,34 +84,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
-        double dspTime = AudioSettings.dspTime;
         lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
-        // if(Input.GetMouseButton(0))
-        // {
-        //     Shoot();
-        // }
-        if (dspTime >= nextBeatTime)
-        {
-            beatCount++;
-            if(beatCount % 4 == 0){
-                beatCount=0;
-                StartCoroutine(DoubleShoot());
-                nextBeatTime += beatInterval;
-            }
-            else{
-                Shoot();
-                nextBeatTime += beatInterval;
-            }
-        }
-    }    
-
-    private IEnumerator DoubleShoot()
-    {
-        Shoot();
-        yield return new WaitForSeconds((float)beatInterval/2f);
-        Shoot();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -138,15 +98,13 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 damageable.Die();
             }
-            TakeDamage();
-            TakeDamage();
-            TakeDamage();
-
+            TakeDamage(1);
         }
     }
-    private void OnCollisionEnter2D(Collision2D other) {
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
         AudioManager.PlaySFX(hit);
-        TakeDamage();
+        TakeDamage(1);
     }
- 
 }

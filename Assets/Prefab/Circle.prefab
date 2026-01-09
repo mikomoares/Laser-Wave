@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1464011694}
   - component: {fileID: -4357128757875155075}
   - component: {fileID: -6295113762280864885}
+  - component: {fileID: 7062625510221508422}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Enemy
@@ -184,3 +185,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyData: {fileID: 11400000, guid: 9a51817c307334548906ab7646049911, type: 2}
+--- !u!95 &7062625510221508422
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5921516637047521467}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8fe77ad5f138b541bc8db41d7f74584, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

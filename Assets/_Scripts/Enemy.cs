@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private Animator animator;
     private Transform playerTransform;
     private float shootTimer;
+    public bool isBeatAnimationSlow;
 
     private void Awake()
     {
@@ -27,6 +28,10 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        if (BeatManager.Instance != null)
+        {
+            BeatManager.Instance.onBeat.AddListener(OnBeat);
+        }
         currentLives = enemyData.maxLives;
         
         GameObject player = GameObject.FindWithTag("Player");
@@ -41,6 +46,18 @@ public class Enemy : MonoBehaviour, IDamageable
         }
 
         shootTimer = enemyData.shootInterval;
+    }
+
+    private void OnBeat()
+    {
+        if(isBeatAnimationSlow && BeatManager.Instance.GetCurrentBeat() % 4 == 0)
+        {
+            animator.SetTrigger("Beat");
+        }
+        else if (!(BeatManager.Instance.GetCurrentBeat() % 2 == 0))
+        {
+            animator.SetTrigger("Beat");
+        }
     }
 
     private void Update()
@@ -123,9 +140,9 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int amount)
     {
-        currentLives--;
+        currentLives -= amount;
 
         if (currentLives <= 0)
         {
@@ -141,6 +158,12 @@ public class Enemy : MonoBehaviour, IDamageable
             if (enemyData.hitSound != null)
             {
                 AudioManager.PlaySFX(enemyData.hitSound);
+            }
+
+            if (enemyData.hitEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(enemyData.hitEffectPrefab, transform.position, Quaternion.identity);
+                Destroy(effect, 2f);
             }
         }
     }
