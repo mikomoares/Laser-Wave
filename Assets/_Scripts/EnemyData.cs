@@ -5,8 +5,13 @@ public class EnemyData : ScriptableObject
 {
     [Header("Combat Stats")]
     public int maxLives = 3;
+    public int projectileDamage = 1;
+
+    [Header("Shooting")]
     public bool isShooter = false;
-    public GameObject projectilePrefab;
+    public GameObject projectileVisualPrefab;
+    public float projectileSpeed = 8f;
+    public float projectileLifetime = 10f;
     public float shootInterval = 2f;
 
     [Header("Movement")]
@@ -17,10 +22,12 @@ public class EnemyData : ScriptableObject
     public AudioClip hitSound;
     public AudioClip deathSound;
     public AudioClip shootSound;
+    public AudioClip projectileHitSound;
 
     [Header("Visuals")]
     public RuntimeAnimatorController animatorController;
     public GameObject hitEffectPrefab;
+    public GameObject projectileHitEffectPrefab;
 }
 
 public enum EnemyMovementType

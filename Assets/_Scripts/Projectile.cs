@@ -9,27 +9,19 @@ public enum ProjectileOwner
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
-    [Header("Ownership")]
-    public ProjectileOwner owner = ProjectileOwner.Player;
+    [HideInInspector] public ProjectileOwner owner = ProjectileOwner.Player;
+    [HideInInspector] public int weaponDamage = 1;
+    [HideInInspector] public float speed = 10f;
+    [HideInInspector] public float maxLifetime = 10f;
+    [HideInInspector] public AudioClip hitSound;
+    [HideInInspector] public GameObject hitEffectPrefab;
+    [HideInInspector] public Vector2 direction = Vector2.up;
 
-    [Header("Movement")]
-    public float speed = 10f;
     public bool usePhysics = false;
-
-    [Header("Collision")]
-    public AudioClip hitSound;
-    public GameObject hitEffectPrefab;
-
-    [Header("Lifetime")]
-    public float maxLifetime = 10f;
-
-    [HideInInspector]
-    public Vector2 direction = Vector2.up;
 
     private Rigidbody2D rb;
     private float lifetime = 0f;
     private bool directionSet = false;
-    public int weaponDamage = 1;
 
     private void Awake()
     {

@@ -15,6 +15,7 @@ public class BeatManager : MonoBehaviour
     private float beatInterval;         
     private double nextBeatDspTime;    
     private int currentBeat = 0;
+    public int loopLength = 8;
     private bool isPlaying = false;
 
     private void Awake()
@@ -32,7 +33,6 @@ public class BeatManager : MonoBehaviour
 
     private void Update()
     {
-        // 🔹 Detecta automaticamente quando a música começa
         if (!isPlaying && musicSource != null && musicSource.isPlaying)
         {
             StartBeats();
@@ -41,7 +41,6 @@ public class BeatManager : MonoBehaviour
         if (!isPlaying)
             return;
 
-        // 🔥 Beat sincronizado com o áudio real
         if (AudioSettings.dspTime >= nextBeatDspTime)
         {
             OnBeat();
@@ -51,10 +50,11 @@ public class BeatManager : MonoBehaviour
 
     private void OnBeat()
     {
+
         currentBeat++;
         onBeat?.Invoke();
 
-        Debug.Log($"Beat {currentBeat}");
+        Debug.Log($"Beat {GetCurrentLoopBeat()}");
     }
 
     public void StartBeats()
@@ -77,6 +77,12 @@ public class BeatManager : MonoBehaviour
     {
         return currentBeat;
     }
+
+    public int GetCurrentLoopBeat()
+    {
+        return currentBeat % loopLength;
+    }
+
 
     public float GetBeatInterval()
     {

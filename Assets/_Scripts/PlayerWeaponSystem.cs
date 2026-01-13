@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerWeaponSystem : MonoBehaviour
 {
-    [Header("Active Weapons")]
-    [Tooltip("All weapons in this list will fire simultaneously, each following its own rhythm pattern")]
-    public WeaponData[] activeWeapons;
+    [Header("8-Beat Loop System")]
+    [Tooltip("Define which weapon fires on each of the 8 beats. Null = no fire on that beat.")]
+    public WeaponData[] beatLoop = new WeaponData[8];
 
     [Header("References")]
     private Transform weaponTransform;
@@ -19,6 +19,7 @@ public class PlayerWeaponSystem : MonoBehaviour
         animator = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody2D>();
         weaponTransform = transform;
+        
         if (BeatManager.Instance != null)
         {
             BeatManager.Instance.onBeat.AddListener(OnBeat);
@@ -26,31 +27,23 @@ public class PlayerWeaponSystem : MonoBehaviour
 
         playerController = GetComponent<PlayerController>();
 
-        foreach (var weapon in activeWeapons)
+        if (beatLoop == null || beatLoop.Length != 8)
         {
-            if (weapon != null)
-            {
-                weapon.ResetPattern();
-            }
+            beatLoop = new WeaponData[8];
         }
     }
 
     private void OnBeat()
     {
-        print("Beat received in PlayerWeaponSystem");
-        bool anyWeaponFired = false;
+        int currentBeat = BeatManager.Instance.GetCurrentBeat();
+        int beatIndex = currentBeat % 8;
 
-        foreach (var weapon in activeWeapons)
-        {
-            if (weapon != null && weapon.ShouldFireOnBeat(BeatManager.Instance.GetCurrentBeat()))
-            {
-                Shoot(weapon);
-                anyWeaponFired = true;
-            }
-        }
+        WeaponData weaponToFire = beatLoop[beatIndex];
 
-        if (anyWeaponFired)
+        if (weaponToFire != null)
         {
+            Shoot(weaponToFire);
+
             if (animator != null)
             {
                 animator.SetTrigger("Attack");
@@ -66,7 +59,7 @@ public class PlayerWeaponSystem : MonoBehaviour
 
     private void Shoot(WeaponData weapon)
     {
-        if (weapon == null || weapon.projectilePrefab == null)
+        if (weapon == null || weapon.projectileVisualPrefab == null)
         {
             return;
         }
@@ -100,19 +93,31 @@ public class PlayerWeaponSystem : MonoBehaviour
 
     private void SpawnProjectile(WeaponData weapon, Vector2 direction)
     {
+        if (weapon.projectileVisualPrefab == null)
+        {
+            Debug.LogWarning($"Weapon {weapon.weaponName} has no projectileVisualPrefab assigned!");
+            return;
+        }
+
         GameObject proj = Instantiate(
-            weapon.projectilePrefab,
+            weapon.projectileVisualPrefab,
             weaponTransform.position,
             weaponTransform.rotation
         );
 
         Projectile projectile = proj.GetComponent<Projectile>();
-        if (projectile != null)
+        if (projectile == null)
         {
-            projectile.SetOwner(ProjectileOwner.Player);
-            projectile.SetDirection(direction);
-            projectile.weaponDamage = weapon.weaponDamage;
+            projectile = proj.AddComponent<Projectile>();
         }
+
+        projectile.SetOwner(ProjectileOwner.Player);
+        projectile.SetDirection(direction);
+        projectile.weaponDamage = weapon.weaponDamage;
+        projectile.speed = weapon.projectileSpeed;
+        projectile.maxLifetime = weapon.projectileLifetime;
+        projectile.hitSound = weapon.hitSound;
+        projectile.hitEffectPrefab = weapon.hitEffectPrefab;
     }
 
     private void ShootSpread(WeaponData weapon)
@@ -136,41 +141,37 @@ public class PlayerWeaponSystem : MonoBehaviour
         }
     }
 
-    public void AddWeapon(WeaponData weapon)
+    public void SetBeatSlot(int beatIndex, WeaponData weapon)
     {
-        if (weapon == null) return;
-
-        WeaponData[] newArray = new WeaponData[activeWeapons.Length + 1];
-        activeWeapons.CopyTo(newArray, 0);
-        newArray[activeWeapons.Length] = weapon;
-        activeWeapons = newArray;
-        weapon.ResetPattern();
-    }
-
-    public void RemoveWeapon(WeaponData weapon)
-    {
-        if (weapon == null) return;
-
-        int index = System.Array.IndexOf(activeWeapons, weapon);
-        if (index >= 0)
+        if (beatIndex >= 0 && beatIndex < 8)
         {
-            WeaponData[] newArray = new WeaponData[activeWeapons.Length - 1];
-            int newIndex = 0;
-            for (int i = 0; i < activeWeapons.Length; i++)
-            {
-                if (i != index)
-                {
-                    newArray[newIndex] = activeWeapons[i];
-                    newIndex++;
-                }
-            }
-            activeWeapons = newArray;
+            beatLoop[beatIndex] = weapon;
         }
     }
 
-    public void ClearAllWeapons()
+    public void ClearBeatSlot(int beatIndex)
     {
-        activeWeapons = new WeaponData[0];
+        if (beatIndex >= 0 && beatIndex < 8)
+        {
+            beatLoop[beatIndex] = null;
+        }
+    }
+
+    public void ClearAllBeats()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            beatLoop[i] = null;
+        }
+    }
+
+    public WeaponData GetBeatSlot(int beatIndex)
+    {
+        if (beatIndex >= 0 && beatIndex < 8)
+        {
+            return beatLoop[beatIndex];
+        }
+        return null;
     }
 
     private void OnDestroy()

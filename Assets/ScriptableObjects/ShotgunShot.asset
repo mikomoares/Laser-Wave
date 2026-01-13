@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Shotgun Shot
   weaponDamage: 3
-  projectilePrefab: {fileID: 3574664897925939995, guid: 4c4f755be98d0ea4582b4afd4572ecf1,
+  projectileVisualPrefab: {fileID: 3574664897925939995, guid: 4c4f755be98d0ea4582b4afd4572ecf1,
     type: 3}
-  useSimplePattern: 1
-  beatDivisor: 8
-  beatOffset: 0
-  useCustomPattern: 1
-  customBeatPattern: 00000000000000010000000000000101
+  projectileSpeed: 20
+  projectileLifetime: 0.3
   pattern: 0
   projectileCount: 1
   spreadAngle: 15
   shootSound: {fileID: 8300000, guid: 769f2ac15ab36e94ebfde87acd476711, type: 3}
-  recoilForce: 5
+  hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
+  hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
+    type: 3}
+  recoilForce: 8

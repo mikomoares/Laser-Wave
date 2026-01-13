@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: Losangle
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxLives: 3
-  isShooter: 1
-  projectilePrefab: {fileID: 3574664897925939995, guid: f3264a77a5af2474aad53bdecf5275c6,
-    type: 3}
+  projectileDamage: 1
+  isShooter: 0
+  projectileVisualPrefab: {fileID: 0}
+  projectileSpeed: 8
+  projectileLifetime: 10
   shootInterval: 4
   speed: 1
   movementType: 0
   hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
   deathSound: {fileID: 8300000, guid: 63b17afd317da154eab0540080f23818, type: 3}
   shootSound: {fileID: 8300000, guid: 769f2ac15ab36e94ebfde87acd476711, type: 3}
+  projectileHitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
   animatorController: {fileID: 0}
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
+    type: 3}
+  projectileHitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
+    type: 3}

@@ -117,20 +117,27 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     private void Shoot()
     {
-        if (enemyData.projectilePrefab != null)
+        if (enemyData.projectileVisualPrefab != null)
         {
-            GameObject proj = Instantiate(enemyData.projectilePrefab, transform.position, Quaternion.identity);
+            GameObject proj = Instantiate(enemyData.projectileVisualPrefab, transform.position, Quaternion.identity);
             
             Projectile projectile = proj.GetComponent<Projectile>();
-            if (projectile != null)
+            if (projectile == null)
             {
-                projectile.SetOwner(ProjectileOwner.Enemy);
-                
-                if (playerTransform != null)
-                {
-                    Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
-                    projectile.SetDirection(directionToPlayer);
-                }
+                projectile = proj.AddComponent<Projectile>();
+            }
+
+            projectile.SetOwner(ProjectileOwner.Enemy);
+            projectile.weaponDamage = enemyData.projectileDamage;
+            projectile.speed = enemyData.projectileSpeed;
+            projectile.maxLifetime = enemyData.projectileLifetime;
+            projectile.hitSound = enemyData.projectileHitSound;
+            projectile.hitEffectPrefab = enemyData.projectileHitEffectPrefab;
+            
+            if (playerTransform != null)
+            {
+                Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
+                projectile.SetDirection(directionToPlayer);
             }
             
             // if (enemyData.shootSound != null)

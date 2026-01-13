@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Basic Shot
   weaponDamage: 1
-  projectilePrefab: {fileID: 3574664897925939995, guid: f3264a77a5af2474aad53bdecf5275c6,
+  projectileVisualPrefab: {fileID: 3574664897925939995, guid: f3264a77a5af2474aad53bdecf5275c6,
     type: 3}
-  useSimplePattern: 1
-  beatDivisor: 2
-  beatOffset: 0
-  useCustomPattern: 1
-  customBeatPattern: 00000100000000000000010000000000
+  projectileSpeed: 10
+  projectileLifetime: 10
   pattern: 0
   projectileCount: 3
   spreadAngle: 15
   shootSound: {fileID: 8300000, guid: 4638f25e6d70a4343907a235d1c22cec, type: 3}
-  recoilForce: 3
+  hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
+  hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
+    type: 3}
+  recoilForce: 4
