@@ -30,9 +30,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         lifes = maxLives;
         animator = GetComponent<Animator>();
-        // comecou = false;
         gm = GameObject.Find("GameManager");
-        AudioManager.StartMusic();
     }
 
     public void TakeDamage(int amount)
@@ -84,6 +82,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
+        if (GameStateManager.Instance != null && !GameStateManager.Instance.IsGameStarted())
+        {
+            return;
+        }
+
         lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;

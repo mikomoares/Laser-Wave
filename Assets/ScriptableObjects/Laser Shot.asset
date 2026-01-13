@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b142e0706d2e41247a47afa7517e065e, type: 3}
   m_Name: Laser Shot
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: Basic Shot
+  weaponName: Laser Shot
   weaponDamage: 1
   projectileVisualPrefab: {fileID: 3574664897925939995, guid: 5c88e3a31855029478d4e2d987ad41d3,
     type: 3}

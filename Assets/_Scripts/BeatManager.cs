@@ -35,6 +35,7 @@ public class BeatManager : MonoBehaviour
     {
         if (!isPlaying && musicSource != null && musicSource.isPlaying)
         {
+            Debug.Log("Certo");
             StartBeats();
         }
 
@@ -43,6 +44,7 @@ public class BeatManager : MonoBehaviour
 
         if (AudioSettings.dspTime >= nextBeatDspTime)
         {
+            Debug.Log("Errado");
             OnBeat();
             nextBeatDspTime += beatInterval;
         }
@@ -62,7 +64,6 @@ public class BeatManager : MonoBehaviour
         isPlaying = true;
         currentBeat = 0;
 
-        // Começa exatamente no tempo atual do áudio
         nextBeatDspTime = AudioSettings.dspTime;
 
         Debug.Log("BeatManager started");

@@ -35,6 +35,11 @@ public class PlayerWeaponSystem : MonoBehaviour
 
     private void OnBeat()
     {
+        if (GameStateManager.Instance != null && !GameStateManager.Instance.IsGameStarted())
+        {
+            return;
+        }
+
         int currentBeat = BeatManager.Instance.GetCurrentBeat();
         int beatIndex = currentBeat % 8;
 

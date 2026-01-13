@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,12 +37,22 @@ public class GM : MonoBehaviour
         timeToWave = 1f;
 
         enemyInWave = 3;
-        StartCoroutine(Spawner());
         panelWin.SetActive(false);
         panelLose.SetActive(false);
 
         player = GameObject.Find("Player");
 
+        StartCoroutine(WaitForGameStart());
+    }
+
+    private IEnumerator WaitForGameStart()
+    {
+        while (GameStateManager.Instance == null || !GameStateManager.Instance.IsGameStarted())
+        {
+            yield return null;
+        }
+
+        StartCoroutine(Spawner());
     }
 
     private IEnumerator Spawner(){
