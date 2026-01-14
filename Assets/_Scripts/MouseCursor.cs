@@ -10,8 +10,8 @@ public class MouseCursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Cursor.visible = false;
-        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = cursorPos;
+        Cursor.visible = false; 
+        transform.position = Input.mousePosition;
     }
+
 }

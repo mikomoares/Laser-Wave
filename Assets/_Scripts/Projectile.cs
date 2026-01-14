@@ -31,9 +31,8 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rb;
     private float lifetime = 0f;
     private bool directionSet = false;
-    private HashSet<GameObject> damagedEnemies = new HashSet<GameObject>();
+    private Dictionary<GameObject, float> enemyLastDamageTime = new Dictionary<GameObject, float>();
     private float damageInterval = 0.2f;
-    private float lastDamageTime = 0f;
 
     private void Awake()
     {
@@ -122,7 +121,7 @@ public class Projectile : MonoBehaviour
     {
         if (projectileType == ProjectileType.AreaOfEffect)
         {
-            damagedEnemies.Remove(collision.gameObject);
+            enemyLastDamageTime.Remove(collision.gameObject);
         }
     }
 
@@ -160,17 +159,21 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        if (Time.time < lastDamageTime + damageInterval)
+        GameObject enemy = collision.gameObject;
+        
+        if (enemyLastDamageTime.TryGetValue(enemy, out float lastDamageTime))
         {
-            return;
+            if (Time.time < lastDamageTime + damageInterval)
+            {
+                return;
+            }
         }
 
         IDamageable damageable = collision.GetComponent<IDamageable>();
-        if (damageable != null && !damagedEnemies.Contains(collision.gameObject))
+        if (damageable != null)
         {
             damageable.TakeDamage(weaponDamage);
-            damagedEnemies.Add(collision.gameObject);
-            lastDamageTime = Time.time;
+            enemyLastDamageTime[enemy] = Time.time;
 
             if (hitSound != null)
             {

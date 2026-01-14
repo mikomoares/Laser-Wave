@@ -21,7 +21,7 @@ MonoBehaviour:
   color: {r: 1, g: 0.95252615, b: 0.5566037, a: 1}
   projectileType: 0
   projectileSpeed: 70
-  projectileLifetime: 0.3
+  projectileLifetime: 0.2
   pattern: 0
   projectileCount: 1
   spreadAngle: 15

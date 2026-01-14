@@ -33,10 +33,10 @@ public class GM : MonoBehaviour
     {
         posicoes = new [] { esq, dir, cima, baixo };
 
-        timeToSpawn = 2f;
+        timeToSpawn = 1f;
         timeToWave = 1f;
 
-        enemyInWave = 3;
+        enemyInWave = 5;
         panelWin.SetActive(false);
         panelLose.SetActive(false);
 
