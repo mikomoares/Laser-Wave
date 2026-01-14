@@ -27,14 +27,10 @@ public class ShootItem : MonoBehaviour
             weaponNameText.text = weaponData.weaponName;
         }
 
-        if (iconImage != null && weaponData.projectileVisualPrefab != null)
+        if (iconImage != null && weaponData.weaponIcon != null)
         {
-            SpriteRenderer spriteRenderer = weaponData.projectileVisualPrefab.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null && spriteRenderer.sprite != null)
-            {
-                iconImage.sprite = spriteRenderer.sprite;
-                iconImage.color = Color.white;
-            }
+            iconImage.sprite = weaponData.weaponIcon;
+            iconImage.color = weaponData.color;
         }
     }
 

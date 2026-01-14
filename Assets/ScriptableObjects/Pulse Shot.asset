@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b142e0706d2e41247a47afa7517e065e, type: 3}
-  m_Name: ShotgunShot
+  m_Name: Pulse Shot
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: +damage +impulse -range
-  weaponDamage: 3
-  projectileVisualPrefab: {fileID: 3574664897925939995, guid: 4c4f755be98d0ea4582b4afd4572ecf1,
+  weaponName: area damage
+  weaponDamage: 1
+  projectileVisualPrefab: {fileID: 3574664897925939995, guid: a3bd633a928dff94cb14a0d627f29a00,
     type: 3}
-  weaponIcon: {fileID: 5234783012028048648, guid: 63886b3af4a18fa4fbe03496688d5904,
+  weaponIcon: {fileID: -754724166745225398, guid: a5ca39e750f50644987815c5ec4a859b,
     type: 3}
-  color: {r: 1, g: 0.95252615, b: 0.5566037, a: 1}
-  projectileType: 0
-  projectileSpeed: 70
-  projectileLifetime: 0.3
-  pattern: 0
+  color: {r: 0.216981, g: 1, b: 0.2975742, a: 1}
+  projectileType: 1
+  projectileSpeed: 40
+  projectileLifetime: 0.2
+  pattern: 3
   projectileCount: 1
   spreadAngle: 15
-  shootSound: {fileID: 8300000, guid: 769f2ac15ab36e94ebfde87acd476711, type: 3}
+  shootSound: {fileID: 8300000, guid: 602950154617f174ea3059ddeb513041, type: 3}
   hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
   hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
     type: 3}
-  recoilForce: 8
+  recoilForce: 0

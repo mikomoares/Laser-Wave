@@ -88,15 +88,11 @@ public class BeatSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
                 weaponNameText.text = currentWeapon.weaponName;
             }
 
-            if (weaponIconImage != null && currentWeapon.projectileVisualPrefab != null)
+            if (weaponIconImage != null && currentWeapon.weaponIcon != null)
             {
-                SpriteRenderer spriteRenderer = currentWeapon.projectileVisualPrefab.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null && spriteRenderer.sprite != null)
-                {
-                    weaponIconImage.sprite = spriteRenderer.sprite;
-                    weaponIconImage.color = Color.white;
-                    weaponIconImage.enabled = true;
-                }
+                weaponIconImage.sprite = currentWeapon.weaponIcon;
+                weaponIconImage.color = currentWeapon.color;
+                weaponIconImage.enabled = true;
             }
 
             if (backgroundImage != null)

@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b142e0706d2e41247a47afa7517e065e, type: 3}
   m_Name: Laser Shot
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: Laser Shot
+  weaponName: +projectile speed    - projectile size
   weaponDamage: 1
   projectileVisualPrefab: {fileID: 3574664897925939995, guid: 5c88e3a31855029478d4e2d987ad41d3,
     type: 3}
-  projectileSpeed: 40
+  weaponIcon: {fileID: -6728809081552189682, guid: f8d04daa6058bee4cbb034cb85b529f6,
+    type: 3}
+  color: {r: 1, g: 0.36037737, b: 0.8602585, a: 1}
+  projectileType: 0
+  projectileSpeed: 200
   projectileLifetime: 5
   pattern: 0
   projectileCount: 1
   spreadAngle: 15
-  shootSound: {fileID: 8300000, guid: 33712f44ccc05a7458802c824fd32751, type: 3}
+  shootSound: {fileID: 8300000, guid: fc7e9880bb8d02745a14992544dbe8ba, type: 3}
   hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
   hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
     type: 3}

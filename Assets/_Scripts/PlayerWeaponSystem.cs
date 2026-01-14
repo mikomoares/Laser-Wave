@@ -87,6 +87,10 @@ public class PlayerWeaponSystem : MonoBehaviour
             case ShootingPattern.Burst:
                 ShootBurst(weapon);
                 break;
+
+            case ShootingPattern.AreaOfEffect:
+                SpawnAOEProjectile(weapon);
+                break;
         }
 
         if (playerRb != null && weapon.recoilForce > 0)
@@ -117,6 +121,7 @@ public class PlayerWeaponSystem : MonoBehaviour
         }
 
         projectile.SetOwner(ProjectileOwner.Player);
+        projectile.SetProjectileType(weapon.projectileType);
         projectile.SetDirection(direction);
         projectile.weaponDamage = weapon.weaponDamage;
         projectile.speed = weapon.projectileSpeed;
@@ -144,6 +149,36 @@ public class PlayerWeaponSystem : MonoBehaviour
         {
             SpawnProjectile(weapon, weaponTransform.right);
         }
+    }
+
+    private void SpawnAOEProjectile(WeaponData weapon)
+    {
+        if (weapon.projectileVisualPrefab == null)
+        {
+            Debug.LogWarning($"AOE Weapon {weapon.weaponName} has no projectileVisualPrefab assigned!");
+            return;
+        }
+
+        GameObject proj = Instantiate(
+            weapon.projectileVisualPrefab,
+            transform.position,
+            Quaternion.identity
+        );
+
+        Projectile projectile = proj.GetComponent<Projectile>();
+        if (projectile == null)
+        {
+            projectile = proj.AddComponent<Projectile>();
+        }
+
+        projectile.SetOwner(ProjectileOwner.Player);
+        projectile.SetProjectileType(ProjectileType.AreaOfEffect);
+        projectile.SetFollowTarget(transform);
+        projectile.weaponDamage = weapon.weaponDamage;
+        projectile.speed = 0f;
+        projectile.maxLifetime = weapon.projectileLifetime;
+        projectile.hitSound = weapon.hitSound;
+        projectile.hitEffectPrefab = weapon.hitEffectPrefab;
     }
 
     public void SetBeatSlot(int beatIndex, WeaponData weapon)

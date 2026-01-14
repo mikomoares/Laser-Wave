@@ -10,8 +10,11 @@ public class WeaponData : ScriptableObject
     [Header("Projectile Visual")]
     [Tooltip("The sprite or visual prefab for this weapon's projectiles")]
     public GameObject projectileVisualPrefab;
+    public Sprite weaponIcon;
+    public Color color = Color.white;
 
     [Header("Projectile Behavior")]
+    public ProjectileType projectileType = ProjectileType.Normal;
     public float projectileSpeed = 10f;
     public float projectileLifetime = 5f;
 
@@ -31,5 +34,6 @@ public enum ShootingPattern
 {
     Single,
     Spread,
-    Burst
+    Burst,
+    AreaOfEffect
 }

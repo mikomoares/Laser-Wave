@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum ProjectileOwner
 {
@@ -6,22 +7,33 @@ public enum ProjectileOwner
     Enemy
 }
 
+public enum ProjectileType
+{
+    Normal,
+    AreaOfEffect
+}
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
     [HideInInspector] public ProjectileOwner owner = ProjectileOwner.Player;
+    [HideInInspector] public ProjectileType projectileType = ProjectileType.Normal;
     [HideInInspector] public int weaponDamage = 1;
     [HideInInspector] public float speed = 10f;
     [HideInInspector] public float maxLifetime = 10f;
     [HideInInspector] public AudioClip hitSound;
     [HideInInspector] public GameObject hitEffectPrefab;
     [HideInInspector] public Vector2 direction = Vector2.up;
+    [HideInInspector] public Transform followTarget;
 
     public bool usePhysics = false;
 
     private Rigidbody2D rb;
     private float lifetime = 0f;
     private bool directionSet = false;
+    private HashSet<GameObject> damagedEnemies = new HashSet<GameObject>();
+    private float damageInterval = 0.2f;
+    private float lastDamageTime = 0f;
 
     private void Awake()
     {
@@ -38,13 +50,45 @@ public class Projectile : MonoBehaviour
                 direction = (player.transform.position - transform.position).normalized;
             }
         }
+
+        if (projectileType == ProjectileType.AreaOfEffect)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.simulated = true;
+            
+            Collider2D[] colliders = GetComponents<Collider2D>();
+            foreach (Collider2D col in colliders)
+            {
+                col.isTrigger = true;
+            }
+
+            if (owner == ProjectileOwner.Player)
+            {
+                GameObject player = GameObject.FindWithTag("Player");
+                if (player != null)
+                {
+                    Collider2D playerCollider = player.GetComponent<Collider2D>();
+                    if (playerCollider != null)
+                    {
+                        foreach (Collider2D col in colliders)
+                        {
+                            Physics2D.IgnoreCollision(col, playerCollider, true);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void Update()
     {
-        if (!usePhysics)
+        if (projectileType == ProjectileType.Normal && !usePhysics)
         {
             rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+        }
+        else if (projectileType == ProjectileType.AreaOfEffect && followTarget != null)
+        {
+            transform.position = followTarget.position;
         }
 
         lifetime += Time.deltaTime;
@@ -55,6 +99,34 @@ public class Projectile : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (projectileType == ProjectileType.Normal)
+        {
+            HandleNormalCollision(collision);
+        }
+        else if (projectileType == ProjectileType.AreaOfEffect)
+        {
+            HandleAOECollision(collision);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (projectileType == ProjectileType.AreaOfEffect)
+        {
+            HandleAOECollision(collision);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (projectileType == ProjectileType.AreaOfEffect)
+        {
+            damagedEnemies.Remove(collision.gameObject);
+        }
+    }
+
+    private void HandleNormalCollision(Collider2D collision)
     {
         if (ShouldIgnoreCollision(collision))
         {
@@ -79,6 +151,38 @@ public class Projectile : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private void HandleAOECollision(Collider2D collision)
+    {
+        if (ShouldIgnoreCollision(collision))
+        {
+            return;
+        }
+
+        if (Time.time < lastDamageTime + damageInterval)
+        {
+            return;
+        }
+
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+        if (damageable != null && !damagedEnemies.Contains(collision.gameObject))
+        {
+            damageable.TakeDamage(weaponDamage);
+            damagedEnemies.Add(collision.gameObject);
+            lastDamageTime = Time.time;
+
+            if (hitSound != null)
+            {
+                AudioManager.PlaySFX(hitSound);
+            }
+
+            if (hitEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(hitEffectPrefab, collision.transform.position, Quaternion.identity);
+                Destroy(effect, 2f);
+            }
+        }
     }
 
     private bool ShouldIgnoreCollision(Collider2D collision)
@@ -107,7 +211,10 @@ public class Projectile : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        if (projectileType == ProjectileType.Normal)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetDirection(Vector2 dir)
@@ -127,6 +234,16 @@ public class Projectile : MonoBehaviour
     public void SetOwner(ProjectileOwner projectileOwner)
     {
         owner = projectileOwner;
+    }
+
+    public void SetProjectileType(ProjectileType type)
+    {
+        projectileType = type;
+    }
+
+    public void SetFollowTarget(Transform target)
+    {
+        followTarget = target;
     }
 
     public void ApplyForce(Vector2 force, ForceMode2D mode = ForceMode2D.Impulse)
