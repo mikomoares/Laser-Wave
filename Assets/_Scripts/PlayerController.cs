@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        AudioManager.PlaySFX(hit);
+        AudioManager.PlaySFX("hit");
         TakeDamage(1);
     }
 }

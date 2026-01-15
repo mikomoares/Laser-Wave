@@ -20,6 +20,7 @@ public class ButtonManager : MonoBehaviour
     }
     private IEnumerator BackCoroutine(){
         animator.SetTrigger("end");
+        BeatManager.Instance.StopBeats();
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }

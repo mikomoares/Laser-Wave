@@ -21,10 +21,9 @@ MonoBehaviour:
   shootInterval: 4
   speed: 1
   movementType: 0
-  hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
-  deathSound: {fileID: 8300000, guid: 63b17afd317da154eab0540080f23818, type: 3}
-  shootSound: {fileID: 8300000, guid: 769f2ac15ab36e94ebfde87acd476711, type: 3}
-  projectileHitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
+  hitSound: hit
+  deathSound: pop
+  shootSound: 
   animatorController: {fileID: 0}
   hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
     type: 3}

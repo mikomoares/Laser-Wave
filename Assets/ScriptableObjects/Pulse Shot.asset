@@ -25,8 +25,8 @@ MonoBehaviour:
   pattern: 3
   projectileCount: 1
   spreadAngle: 15
-  shootSound: {fileID: 8300000, guid: 602950154617f174ea3059ddeb513041, type: 3}
-  hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
+  shootSound: pulse
+  hitSound: hit
   hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
     type: 3}
   recoilForce: 0

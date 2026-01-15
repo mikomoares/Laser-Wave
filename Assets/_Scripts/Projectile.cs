@@ -21,7 +21,6 @@ public class Projectile : MonoBehaviour
     [HideInInspector] public int weaponDamage = 1;
     [HideInInspector] public float speed = 10f;
     [HideInInspector] public float maxLifetime = 10f;
-    [HideInInspector] public AudioClip hitSound;
     [HideInInspector] public GameObject hitEffectPrefab;
     [HideInInspector] public Vector2 direction = Vector2.up;
     [HideInInspector] public Transform followTarget;
@@ -137,10 +136,7 @@ public class Projectile : MonoBehaviour
         {
             damageable.TakeDamage(weaponDamage);
 
-            if (hitSound != null)
-            {
-                AudioManager.PlaySFX(hitSound);
-            }
+            AudioManager.PlaySFX("hit");
 
             if (hitEffectPrefab != null)
             {
@@ -175,10 +171,7 @@ public class Projectile : MonoBehaviour
             damageable.TakeDamage(weaponDamage);
             enemyLastDamageTime[enemy] = Time.time;
 
-            if (hitSound != null)
-            {
-                AudioManager.PlaySFX(hitSound);
-            }
+            AudioManager.PlaySFX("hit");
 
             if (hitEffectPrefab != null)
             {

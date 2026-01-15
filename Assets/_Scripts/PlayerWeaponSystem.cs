@@ -71,7 +71,9 @@ public class PlayerWeaponSystem : MonoBehaviour
 
         if (weapon.shootSound != null)
         {
-            AudioManager.PlaySFX(weapon.shootSound);
+            float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+            float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+            AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
         }
 
         switch (weapon.pattern)
@@ -126,7 +128,6 @@ public class PlayerWeaponSystem : MonoBehaviour
         projectile.weaponDamage = weapon.weaponDamage;
         projectile.speed = weapon.projectileSpeed;
         projectile.maxLifetime = weapon.projectileLifetime;
-        projectile.hitSound = weapon.hitSound;
         projectile.hitEffectPrefab = weapon.hitEffectPrefab;
     }
 
@@ -177,7 +178,6 @@ public class PlayerWeaponSystem : MonoBehaviour
         projectile.weaponDamage = weapon.weaponDamage;
         projectile.speed = 0f;
         projectile.maxLifetime = weapon.projectileLifetime;
-        projectile.hitSound = weapon.hitSound;
         projectile.hitEffectPrefab = weapon.hitEffectPrefab;
     }
 

@@ -19,10 +19,9 @@ public class EnemyData : ScriptableObject
     public EnemyMovementType movementType = EnemyMovementType.ChasePlayer;
 
     [Header("Audio")]
-    public AudioClip hitSound;
-    public AudioClip deathSound;
-    public AudioClip shootSound;
-    public AudioClip projectileHitSound;
+    public string hitSound;
+    public string deathSound;
+    public string shootSound;
 
     [Header("Visuals")]
     public RuntimeAnimatorController animatorController;

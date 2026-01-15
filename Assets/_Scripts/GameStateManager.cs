@@ -34,6 +34,7 @@ public class GameStateManager : MonoBehaviour
         if (continueButton != null)
         {
             continueButton.onClick.AddListener(OnContinueClicked);
+            print("Continue Button Listener Added");
         }
 
         if (storePanel != null)
@@ -51,6 +52,7 @@ public class GameStateManager : MonoBehaviour
 
     public void StartGame()
     {
+        print("Game Started");  
         gameStarted = true;
 
         if (storePanel != null)
@@ -60,15 +62,7 @@ public class GameStateManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        if (beatManager != null && beatManager.musicSource != null)
-        {
-            AudioManager.StartMusic();
-            // beatManager.musicSource.isPlaying = true;
-        }
-        else
-        {
-            AudioManager.StartMusic();
-        }
+        AudioManager.StartMusic();
     }
 
     public bool IsGameStarted()

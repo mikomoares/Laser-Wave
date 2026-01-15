@@ -16,7 +16,7 @@ public class CircleScript : MonoBehaviour, IDamageable
     }
     public void Die(){
         Destroy(gameObject);
-        AudioManager.PlaySFX(pop);
+        AudioManager.PlaySFX("pop");
     }
     private void FixedUpdate() {
         float step =  2f * Time.deltaTime; 

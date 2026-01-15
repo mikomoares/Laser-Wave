@@ -33,7 +33,7 @@ public class GM : MonoBehaviour
     {
         posicoes = new [] { esq, dir, cima, baixo };
 
-        timeToSpawn = 1f;
+        timeToSpawn = 2f;
         timeToWave = 1f;
 
         enemyInWave = 5;

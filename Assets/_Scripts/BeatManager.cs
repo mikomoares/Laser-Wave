@@ -65,8 +65,6 @@ public class BeatManager : MonoBehaviour
         currentBeat = 0;
 
         nextBeatDspTime = AudioSettings.dspTime;
-
-        Debug.Log("BeatManager started");
     }
 
     public void StopBeats()
@@ -77,6 +75,11 @@ public class BeatManager : MonoBehaviour
     public int GetCurrentBeat()
     {
         return currentBeat;
+    }
+
+    public int GetCurrentLoop()
+    {
+        return currentBeat / loopLength;
     }
 
     public int GetCurrentLoopBeat()

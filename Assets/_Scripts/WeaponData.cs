@@ -24,8 +24,8 @@ public class WeaponData : ScriptableObject
     public float spreadAngle = 15f;
 
     [Header("Effects")]
-    public AudioClip shootSound;
-    public AudioClip hitSound;
+    public string shootSound;
+    public string hitSound;
     public GameObject hitEffectPrefab;
     public float recoilForce = 5f;
 }

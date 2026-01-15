@@ -21,12 +21,12 @@ MonoBehaviour:
   color: {r: 1, g: 0.36037737, b: 0.8602585, a: 1}
   projectileType: 0
   projectileSpeed: 200
-  projectileLifetime: 5
+  projectileLifetime: 7
   pattern: 0
   projectileCount: 1
   spreadAngle: 15
-  shootSound: {fileID: 8300000, guid: fc7e9880bb8d02745a14992544dbe8ba, type: 3}
-  hitSound: {fileID: 8300000, guid: bfd5f623213c25845a12a66b260781c1, type: 3}
+  shootSound: laser
+  hitSound: hit
   hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
     type: 3}
   recoilForce: 4

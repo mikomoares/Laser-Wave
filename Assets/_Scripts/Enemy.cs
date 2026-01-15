@@ -131,7 +131,6 @@ public class Enemy : MonoBehaviour, IDamageable
             projectile.weaponDamage = enemyData.projectileDamage;
             projectile.speed = enemyData.projectileSpeed;
             projectile.maxLifetime = enemyData.projectileLifetime;
-            projectile.hitSound = enemyData.projectileHitSound;
             projectile.hitEffectPrefab = enemyData.projectileHitEffectPrefab;
             
             if (playerTransform != null)
@@ -162,10 +161,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 animator.SetTrigger("Damage");
             }
 
-            if (enemyData.hitSound != null)
-            {
-                AudioManager.PlaySFX(enemyData.hitSound);
-            }
+            AudioManager.PlaySFX("hit");
 
             if (enemyData.hitEffectPrefab != null)
             {
