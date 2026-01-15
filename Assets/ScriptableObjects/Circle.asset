@@ -17,7 +17,7 @@ MonoBehaviour:
   isShooter: 1
   projectileVisualPrefab: {fileID: 3574664897925939995, guid: 89b1b6b45088abf4dadf96e5ebdf6325,
     type: 3}
-  projectileSpeed: 28
+  projectileSpeed: 6
   projectileLifetime: 20
   shootInterval: 5
   speed: 1

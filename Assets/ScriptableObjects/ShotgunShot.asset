@@ -20,12 +20,14 @@ MonoBehaviour:
     type: 3}
   color: {r: 1, g: 0.95252615, b: 0.5566037, a: 1}
   projectileType: 0
-  projectileSpeed: 70
-  projectileLifetime: 0.4
+  projectileSpeed: 17
+  projectileLifetime: 0.3
   pattern: 0
   projectileCount: 1
   spreadAngle: 15
-  shootSound: shotgun
+  shootSounds:
+  - shotgun1
+  - shotgun2
   hitSound: hit
   hitEffectPrefab: {fileID: 1967626914376021471, guid: 6bf0550a67f76864cb3d8d8a263115cf,
     type: 3}

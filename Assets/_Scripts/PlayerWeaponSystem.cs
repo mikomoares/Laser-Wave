@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerWeaponSystem : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class PlayerWeaponSystem : MonoBehaviour
             return;
         }
 
-        if (weapon.shootSound != null)
+        if (weapon.shootSounds != null)
         {
         }
 
@@ -114,9 +115,10 @@ public class PlayerWeaponSystem : MonoBehaviour
             weaponTransform.rotation
         );
 
-        float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-        float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-        AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
+        float volume = CreateVolume();
+        float pitch = CreatePitch();
+        if (BeatManager.Instance.GetCurrentLoop() % 4 == 0) AudioManager.PlaySFX(weapon.shootSounds[0], pitch, volume);
+        else AudioManager.PlaySFX(weapon.shootSounds[1], pitch, volume);
 
         Projectile projectile = proj.GetComponent<Projectile>();
         if (projectile == null)
@@ -143,9 +145,10 @@ public class PlayerWeaponSystem : MonoBehaviour
             float currentAngle = startAngle + (angleStep * i);
             Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * weaponTransform.right;
             SpawnProjectile(weapon, -direction);
-            float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-            float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-            AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
+            float volume = CreateVolume();
+            float pitch = CreatePitch();
+            if (BeatManager.Instance.GetCurrentLoop() % 4 == 0) AudioManager.PlaySFX(weapon.shootSounds[0], pitch, volume);
+            else AudioManager.PlaySFX(weapon.shootSounds[1], pitch, volume);
         }
     }
 
@@ -167,9 +170,10 @@ public class PlayerWeaponSystem : MonoBehaviour
         for (int i = 0; i < weapon.projectileCount; i++)
         {
             SpawnProjectile(weapon, -weaponTransform.right);
-            float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-            float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-            AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
+            float volume = CreateVolume();
+            float pitch = CreatePitch();
+            if (BeatManager.Instance.GetCurrentLoop() % 4 == 0) AudioManager.PlaySFX(weapon.shootSounds[0], pitch, volume);
+            else AudioManager.PlaySFX(weapon.shootSounds[1], pitch, volume);
 
             if (i < weapon.projectileCount - 1)
             {
@@ -191,9 +195,10 @@ public class PlayerWeaponSystem : MonoBehaviour
             transform.position,
             Quaternion.identity
         );
-        float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-        float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-        AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
+        float volume = CreateVolume();
+        float pitch = CreatePitch();
+        if (BeatManager.Instance.GetCurrentLoop() % 4 == 0) AudioManager.PlaySFX(weapon.shootSounds[0], pitch, volume);
+        else AudioManager.PlaySFX(weapon.shootSounds[1], pitch, volume);
 
         Projectile projectile = proj.GetComponent<Projectile>();
         if (projectile == null)
@@ -249,5 +254,14 @@ public class PlayerWeaponSystem : MonoBehaviour
         {
             BeatManager.Instance.onBeat.RemoveListener(OnBeat);
         }
+    }
+
+    private float CreatePitch()
+    {
+        return .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f * Random.Range(0.8f, 1.2f);
+    }
+    private float CreateVolume()
+    {
+        return .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f * Random.Range(0.8f, 1.2f);
     }
 }

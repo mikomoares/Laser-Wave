@@ -26,7 +26,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 150}
   m_MaxSize: {x: 32384, y: 24288}
   vertical: 0
-  controlID: 36242
+  controlID: 47407
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -98,7 +98,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 150}
   m_MaxSize: {x: 8096, y: 24288}
   vertical: 1
-  controlID: 36243
+  controlID: 47256
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -792,9 +792,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -13.756629, y: -1.0883718, z: -0.14607747}
+    m_Target: {x: -16.038696, y: 1.3970466, z: -0.29080066}
     speed: 2
-    m_Value: {x: -13.756629, y: -1.0883718, z: -0.14607747}
+    m_Value: {x: -16.038696, y: 1.3970466, z: -0.29080066}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -844,9 +844,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 15.473773
+    m_Target: 29.94612
     speed: 2
-    m_Value: 15.473773
+    m_Value: 29.94612
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1008,8 +1008,8 @@ MonoBehaviour:
     y: 516.8
     width: 1191.2
     height: 285.60004
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -1118,7 +1118,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 71746
+  m_LastSelectedObjectID: 32030
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1187,7 +1187,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 9e77feffb084fefff49bfeffd0fafffff4ffffffd67c0000d87e0000
+      m_ExpandedIDs: 9e77feffb084fefff49bfeffd0fafffff4ffffffd67c00001e7d0000d87e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1286,7 +1286,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefab
+    - Assets/ScriptableObjects
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1296,15 +1296,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefab
+  - Assets/ScriptableObjects
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\mihan\Documents\Unity Games\Laser-Wave
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 06840000
-    m_LastClickedID: 33798
+    m_SelectedIDs: 86840000
+    m_LastClickedID: 33926
     m_ExpandedIDs: 00000000028400000484000006840000088400000a8400000c8400000e84000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1360,9 +1360,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 4e7c0000
+    m_LastClickedInstanceID: 31822
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: a8f6000036ae00003aae0000f4b00000feb000005cae0000d6ae0000eacb0000a4f90000a8af00009ab20000e6af00008cbe0000388a0000448c000094940100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1411,8 +1411,8 @@ MonoBehaviour:
     y: 0
     width: 288
     height: 1004.80005
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -1461,7 +1461,7 @@ MonoBehaviour:
     m_CachedPref: -160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1
+  m_LastInspectedObjectInstanceID: 31822
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
