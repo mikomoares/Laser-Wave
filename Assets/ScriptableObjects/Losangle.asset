@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4febdab1792f8f489ba3c2291a6a491, type: 3}
   m_Name: Losangle
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  maxLives: 3
+  maxLives: 5
   projectileDamage: 1
   isShooter: 0
   projectileVisualPrefab: {fileID: 0}
@@ -25,7 +25,8 @@ MonoBehaviour:
   deathSound: pop
   shootSound: 
   animatorController: {fileID: 0}
-  hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
-    type: 3}
+  hitEffectPrefab:
+  - {fileID: 5301881652143536227, guid: 22b97a7c8cee5a3498294982aca042ec, type: 3}
+  - {fileID: 5315346124119268475, guid: 7e9e40943bfd86540b541dbe29deff17, type: 3}
   projectileHitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
     type: 3}

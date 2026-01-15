@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerWeaponSystem : MonoBehaviour
 {
@@ -71,9 +72,6 @@ public class PlayerWeaponSystem : MonoBehaviour
 
         if (weapon.shootSound != null)
         {
-            float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-            float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
-            AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
         }
 
         switch (weapon.pattern)
@@ -116,6 +114,10 @@ public class PlayerWeaponSystem : MonoBehaviour
             weaponTransform.rotation
         );
 
+        float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+        float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+        AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
+
         Projectile projectile = proj.GetComponent<Projectile>();
         if (projectile == null)
         {
@@ -140,15 +142,39 @@ public class PlayerWeaponSystem : MonoBehaviour
         {
             float currentAngle = startAngle + (angleStep * i);
             Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * weaponTransform.right;
-            SpawnProjectile(weapon, direction);
+            SpawnProjectile(weapon, -direction);
+            float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+            float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+            AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
         }
     }
 
     private void ShootBurst(WeaponData weapon)
     {
+        StartCoroutine(BurstCoroutine(weapon));
+    }
+
+    private IEnumerator BurstCoroutine(WeaponData weapon)
+    {
+        if (weapon.projectileCount <= 0)
+        {
+            yield break;
+        }
+
+        float beatInterval = BeatManager.Instance.GetBeatInterval();
+        float timeBetweenShots = beatInterval / weapon.projectileCount;
+
         for (int i = 0; i < weapon.projectileCount; i++)
         {
-            SpawnProjectile(weapon, weaponTransform.right);
+            SpawnProjectile(weapon, -weaponTransform.right);
+            float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+            float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+            AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
+
+            if (i < weapon.projectileCount - 1)
+            {
+                yield return new WaitForSeconds(timeBetweenShots);
+            }
         }
     }
 
@@ -165,6 +191,9 @@ public class PlayerWeaponSystem : MonoBehaviour
             transform.position,
             Quaternion.identity
         );
+        float volume = .9f - BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+        float pitch = .9f + BeatManager.Instance.GetCurrentLoop()%4 * .05f;
+        AudioManager.PlaySFX(weapon.shootSound, pitch, volume);
 
         Projectile projectile = proj.GetComponent<Projectile>();
         if (projectile == null)

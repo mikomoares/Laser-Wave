@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using CartoonFX;
 
 public enum ProjectileOwner
 {
@@ -141,6 +142,11 @@ public class Projectile : MonoBehaviour
             if (hitEffectPrefab != null)
             {
                 GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+                CFXR_ParticleText particleText = effect.GetComponent<CFXR_ParticleText>();
+                if (particleText != null)
+                {
+                    particleText.UpdateText((weaponDamage * 10).ToString());
+                }
                 Destroy(effect, 2f);
             }
         }
@@ -176,6 +182,11 @@ public class Projectile : MonoBehaviour
             if (hitEffectPrefab != null)
             {
                 GameObject effect = Instantiate(hitEffectPrefab, collision.transform.position, Quaternion.identity);
+                CFXR_ParticleText particleText = effect.GetComponent<CFXR_ParticleText>();
+                if (particleText != null)
+                {
+                    particleText.UpdateText((weaponDamage * 10).ToString());
+                }
                 Destroy(effect, 2f);
             }
         }

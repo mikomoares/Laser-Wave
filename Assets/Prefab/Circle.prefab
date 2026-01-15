@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4986154233964735068}
   - component: {fileID: 2302421201680089599}
   - component: {fileID: 1124429529361713366}
-  - component: {fileID: 1464011694}
   - component: {fileID: -4357128757875155075}
   - component: {fileID: -6295113762280864885}
   - component: {fileID: 7062625510221508422}
@@ -131,20 +130,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 3.2
---- !u!114 &1464011694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5921516637047521467}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 305696c4af622344b96f47eb9d7af866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pop: {fileID: 8300000, guid: 63b17afd317da154eab0540080f23818, type: 3}
-  player: {fileID: 0}
 --- !u!50 &-4357128757875155075
 Rigidbody2D:
   serializedVersion: 5
@@ -185,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyData: {fileID: 11400000, guid: 9a51817c307334548906ab7646049911, type: 2}
+  isBeatAnimationSlow: 0
 --- !u!95 &7062625510221508422
 Animator:
   serializedVersion: 7

@@ -148,6 +148,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(int amount)
     {
+        print("Enemy took damage: " + amount);
         currentLives -= amount;
 
         if (currentLives <= 0)
@@ -165,8 +166,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
             if (enemyData.hitEffectPrefab != null)
             {
-                GameObject effect = Instantiate(enemyData.hitEffectPrefab, transform.position, Quaternion.identity);
-                Destroy(effect, 2f);
+                // GameObject effect = Instantiate(enemyData.hitEffectPrefab, transform.position, Quaternion.identity);
+                // Destroy(effect, 2f);
             }
         }
     }
@@ -175,7 +176,11 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (enemyData.deathSound != null)
         {
+            print("playing death sound");
             AudioManager.PlaySFX(enemyData.deathSound);
+            int randomEffect = Random.Range(0, enemyData.hitEffectPrefab.Length);
+            GameObject effect = Instantiate(enemyData.hitEffectPrefab[randomEffect], transform.position, Quaternion.identity);
+            Destroy(effect, 2f);
         }
 
         Destroy(gameObject);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotgunShot
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: +damage +impulse -range
-  weaponDamage: 3
+  weaponDamage: 5
   projectileVisualPrefab: {fileID: 3574664897925939995, guid: 4c4f755be98d0ea4582b4afd4572ecf1,
     type: 3}
   weaponIcon: {fileID: 5234783012028048648, guid: 63886b3af4a18fa4fbe03496688d5904,
@@ -21,12 +21,12 @@ MonoBehaviour:
   color: {r: 1, g: 0.95252615, b: 0.5566037, a: 1}
   projectileType: 0
   projectileSpeed: 70
-  projectileLifetime: 0.2
+  projectileLifetime: 0.4
   pattern: 0
   projectileCount: 1
   spreadAngle: 15
   shootSound: shotgun
   hitSound: hit
-  hitEffectPrefab: {fileID: 8892831990123903883, guid: b6fbab518319bd54cbe797e96fe6209b,
+  hitEffectPrefab: {fileID: 1967626914376021471, guid: 6bf0550a67f76864cb3d8d8a263115cf,
     type: 3}
   recoilForce: 8
